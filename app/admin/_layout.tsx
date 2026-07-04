@@ -3,18 +3,7 @@ import { Tabs } from "expo-router";
 
 export default function AdminLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: "#2563eb",
-        tabBarInactiveTintColor: "#94a3b8",
-        tabBarStyle: {
-          height: 65,
-          paddingBottom: 8,
-          paddingTop: 8,
-        },
-      }}
-    >
+    <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="dashboard"
         options={{
@@ -46,6 +35,40 @@ export default function AdminLayout() {
       />
 
       <Tabs.Screen
+        name="holidays"
+        options={{
+          title: "Hari Libur",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="calendar-number-outline"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="rekap"
+        options={{
+          title: "Rekap",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bar-chart-outline" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="saw"
+        options={{
+          title: "SAW",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="trophy-outline" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
@@ -55,37 +78,13 @@ export default function AdminLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="add-user"
-        options={{
-          title: "add-user",
-          tabBarIcon: ({ size }) => (
-            <Ionicons name="person-add" size={size} color={"#8e8e93"} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="edit-user"
-        options={{
-          title: "Edit User",
-          tabBarIcon: ({ size }) => (
-            <Ionicons name="create-outline" size={size} color="#8e8e93" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="detail-riwayat"
-        options={{
-          title: "Detail Riwayat",
-          tabBarIcon: ({ size }) => (
-            <Ionicons
-              name="document-text-outline" // Ikon dokumen teks untuk detail data
-              size={size}
-              color="#8e8e93" // Warna abu-abu garis tepi konsisten
-            />
-          ),
-        }}
-      />
+      <Tabs.Screen name="add-user" options={{ href: null }} />
+
+      <Tabs.Screen name="edit-user" options={{ href: null }} />
+
+      <Tabs.Screen name="detail-riwayat" options={{ href: null }} />
+
+      <Tabs.Screen name="detail-saw" options={{ href: null }} />
     </Tabs>
   );
 }
