@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -14,17 +15,14 @@ import { login } from "../src/services/authService";
 export default function LoginScreen() {
   const [email, setEmail] = useState("admin@absensi.com");
   const [password, setPassword] = useState("123456");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
-      console.log("Login ke:", email);
-
       setLoading(true);
 
       const result = await login(email, password);
-
-      console.log("Response Login:", result);
 
       if (result.success) {
         if (result.user?.role === "admin") {
@@ -36,13 +34,6 @@ export default function LoginScreen() {
         Alert.alert("Login gagal", result.message || "Login gagal");
       }
     } catch (error: any) {
-      console.log("========== LOGIN ERROR ==========");
-      console.log("MESSAGE :", error.message);
-      console.log("CODE :", error.code);
-      console.log("STATUS :", error.response?.status);
-      console.log("DATA :", error.response?.data);
-      console.log("CONFIG :", error.config?.url);
-
       Alert.alert(
         "Login Error",
         error.response?.data?.message ||
@@ -66,16 +57,38 @@ export default function LoginScreen() {
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
+          autoCorrect={false}
           keyboardType="email-address"
+          textContentType="username"
+          autoComplete="email"
+          importantForAutofill="yes"
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+        <View style={styles.passwordWrapper}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            textContentType="password"
+            autoComplete="password"
+            importantForAutofill="yes"
+          />
+
+          <TouchableOpacity
+            style={styles.eyeButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Ionicons
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              size={22}
+              color="#64748b"
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           style={styles.button}
@@ -123,6 +136,21 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 14,
     marginBottom: 15,
+  },
+  passwordWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#cbd5e1",
+    borderRadius: 12,
+    marginBottom: 15,
+  },
+  passwordInput: {
+    flex: 1,
+    padding: 14,
+  },
+  eyeButton: {
+    paddingHorizontal: 14,
   },
   button: {
     backgroundColor: "#2563eb",
