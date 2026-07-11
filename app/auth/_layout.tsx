@@ -46,6 +46,16 @@ export default function AuthLayout() {
       />
 
       <Tabs.Screen
+        name="change-password" // Pastikan nama ini sesuai dengan nama file/folder screen Anda
+        options={{
+          title: "Sandi", // Nama singkat agar muat di bilah bawah (misal: Sandi / Password)
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="key-outline" size={size} color={color} /> // Menggunakan ikon kunci/gembok kontemporer
+          ),
+        }}
+      />
+
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
